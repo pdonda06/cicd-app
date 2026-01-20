@@ -1,0 +1,22 @@
+# Ignore build artifacts
+build
+dist
+out
+.next
+coverage
+
+# Ignore dependencies
+node_modules
+
+# Ignore environment files
+.env
+.env.local
+.env.development.local
+.env.production.local
+
+# Ignore other common files/folders
+package-lock.json
+yarn.lock
+# If you have separate client and server folders and want to ignore specific items in them
+# client/build
+# server/node_modules

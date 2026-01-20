@@ -61,7 +61,7 @@ jobs:
         SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
         SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
     - name: Open Issue on CI failure
-      if: always() && github.event_name == 'pull_request' && failure()
+      if: github.event_name == 'pull_request' && failure()
       run: |
           gh issue create \
           --title "CI Failed for PR #${{ github.event.pull_request.number }}" \

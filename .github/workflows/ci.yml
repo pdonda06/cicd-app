@@ -74,14 +74,12 @@ jobs:
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
 
       - name: Open Issue on CI Failure
-        if: always() && failure() && github.event_name == 'pull_request'
+        if: always() && failure()
         run: |
-          curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.CUSTOM_TOKEN }}" \
-            -H "Accept: application/vnd.github+json" \
-            https://api.github.com/repos/${{ github.repository }}/issues \
-            -d "{
-              \"title\": \"CI Failed for PR #${{ github.event.pull_request.number }}\",
-              \"body\": \"The CI workflow **${{ github.workflow }}** failed.\n\nCommit: ${{ github.sha }}\nCheck the Actions logs for details.\",
-              \"assignees\": [\"${{ github.event.pull_request.user.login }}\"]
-            }"
+          gh issue create \
+          --title "CI Failed for PR #${{ github.event.pull_request.number }}" \
+          --body "CI failed in workflow **${{ github.workflow }}**.\n\nCommit: ${{ github.event.pull_request.head.sha }}\nCheck Actions logs." \
+          --repo "${{ github.repository }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

@@ -14,8 +14,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '17'
-    - run: npm ci 
-    - run: npm run --check "**/*.js"
+    - run: npm ci
+    - run: npx prettier --check "**/*.js"
     - run: npm test -- --coverage
       env:
         CI: true
